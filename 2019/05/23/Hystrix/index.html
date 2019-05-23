@@ -8,13 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="1.服务器雪崩在高并发的情况下，所有的服务器线程都在处理高并发下的请求，倒置其他请求无法处理。A服务请求B服务，tomcat默认并发是50个，20000个请求一起过来时，B服务都在处理A服务的请求，其他请求（直接访问B服务的请求）都在等待状态！">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/23/Hystrix/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.服务器雪崩在高并发的情况下，所有的服务器线程都在处理高并发下的请求，倒置其他请求无法处理。A服务请求B服务，tomcat默认并发是50个，20000个请求一起过来时，B服务都在处理A服务的请求，其他请求（直接访问B服务的请求）都在等待状态！">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T03:47:55.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="1.服务器雪崩在高并发的情况下，所有的服务器线程都在处理高并发下的请求，倒置其他请求无法处理。A服务请求B服务，tomcat默认并发是50个，20000个请求一起过来时，B服务都在处理A服务的请求，其他请求（直接访问B服务的请求）都在等待状态！">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,178 +154,63 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-springCloud入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-Springcloud的模块"><a href="#1-Springcloud的模块" class="headerlink" title="1.Springcloud的模块"></a>1.Springcloud的模块</h1><ul>
-<li>rest、feign 客户端调用工具</li>
-<li>ribbon 负载均衡</li>
-<li>zuul 接口网关</li>
-<li>euraka 服务注册中心</li>
-<li>Hystrix 熔断器</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/05/23/springCloud入门/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/springCloud入门/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-springCloud配置中心" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/springCloud配置中心/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ribbon负载均衡实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-负载均衡原理（轮训）"><a href="#1-负载均衡原理（轮训）" class="headerlink" title="1.负载均衡原理（轮训）"></a>1.负载均衡原理（轮训）</h1><p>客户端请求的总次数对服务器集群列表数目进行求余运算</p>
-<ul>
-<li>当前请求总数为1，服务器列表的集群为2，1%2=1。所以当前访问下标为 List [1] 的服务器</li>
-<li>当前请求总数为2，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [0] 的服务器</li>
-<li>当前请求总数为3，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [1] 的服务器</li>
-</ul>
-<p>说明总数是从最开始访问开始累加的。</p>
-        
-          <a class="article-more-a" href="/2019/05/23/ribbon负载均衡实现/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/ribbon负载均衡实现/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hystrix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Hystrix" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="1-服务器雪崩"><a href="#1-服务器雪崩" class="headerlink" title="1.服务器雪崩"></a>1.服务器雪崩</h1><p>在高并发的情况下，所有的服务器线程都在处理高并发下的请求，倒置其他请求无法处理。A服务请求B服务，tomcat默认并发是50个，20000个请求一起过来时，B服务都在处理A服务的请求，其他请求（直接访问B服务的请求）<span style="color:red">都在等待状态！</span></p>
-        
-          <a class="article-more-a" href="/2019/05/23/Hystrix/#more">more >></a>
-        
+<a id="more"></a>
+<h1 id="2-几个概念"><a href="#2-几个概念" class="headerlink" title="2.几个概念"></a>2.几个概念</h1><h2 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h2><p>在高并发情况下，防止用户一直等待，使用服务降级方式(直接返回一个友好的提示给客户端，调用fallBack方法）</p>
+<h2 id="服务熔断"><a href="#服务熔断" class="headerlink" title="服务熔断"></a>服务熔断</h2><p>熔断机制目的为了保护服务，在高并发的情况下，如果请求达到一定极限(可以自己设置阔值)如果流量超出了设置阈值，让后直接拒绝访问，保护当前服务。使用服务降级方式返回一个友好提示，服务熔断和服务降级一起使用。</p>
+<h2 id="服务隔离"><a href="#服务隔离" class="headerlink" title="服务隔离"></a>服务隔离</h2><p>因为默认情况下，只有一个线程池会维护所有的服务接口，如果大量的请求访问同一个接口，达到tomcat 线程池默认极限，可能会导致其他服务无法访问。解决服务雪崩效应:使用服务隔离机制(线程池方式和信号量)，使用线程池方式实現隔离的原理:  相当于每个接口(服务)都有自己独立的线程池，因为每个线程池互不影响，这样的话就可以解决服务雪崩效应。</p>
+<h3 id="线程池隔离"><a href="#线程池隔离" class="headerlink" title="线程池隔离:"></a>线程池隔离:</h3><p>每个服务接口，都有自己独立的线程池，每个线程池互不影响。</p>
+<h3 id="信号量隔离"><a href="#信号量隔离" class="headerlink" title="信号量隔离:"></a>信号量隔离:</h3><p>使用一个原子计数器（或信号量）来记录当前有多少个线程在运行，当请求进来时先判断计数器的数值，若超过设置的最大线程个数则拒绝该请求，若不超过则通行，这时候计数器+1，请求返 回成功后计数器-1。</p>
+<p>此处应该有demo</p>
+<p>配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line"><span class="attr">  hystrix:</span></span><br><span class="line"><span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">#### hystrix禁止服务超时时间</span></span><br><span class="line"><span class="attr">hystrix:</span>  </span><br><span class="line"><span class="attr"> command:</span> </span><br><span class="line"><span class="attr">   default:</span> </span><br><span class="line"><span class="attr">      execution:</span> </span><br><span class="line"><span class="attr">       timeout:</span> </span><br><span class="line"><span class="attr">        enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>依赖文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- hystrix断路器 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-hystrix<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderServiceImpl</span> <span class="keyword">extends</span> <span class="title">BaseApiService</span> <span class="keyword">implements</span> <span class="title">IOrderService</span> </span>&#123;  <span class="comment">// 继承与接口不用细看，使用feigin整合</span></span><br><span class="line">	<span class="comment">// 订单服务继承会员服务接口，用来实现feign客户端 减少重复接口代码</span></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> MemberServiceFeigin memberServiceFeigin;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/orderToMember"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">orderToMember</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		UserEntity user = memberServiceFeigin.getMember(name);</span><br><span class="line">		<span class="keyword">return</span> user == <span class="keyword">null</span> ? <span class="string">"没有找到用户信息"</span> : user.toString();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 没有解决服务雪崩效应</span></span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/orderToMemberUserInfo"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseBase <span class="title">orderToMemberUserInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> memberServiceFeigin.getUserInfo();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 解决服务雪崩效应</span></span><br><span class="line">	<span class="comment">// fallbackMethod 方法的作用：服务降级执行</span></span><br><span class="line">	<span class="comment">// @HystrixCommand 默认开启线程池隔离方式,服务降级,服务熔断</span></span><br><span class="line">	<span class="comment">// 设置Hystrix服务超时时间</span></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@HystrixCommand</span>&lt;br&gt;</span></span><br><span class="line"><span class="comment">	 * 					默认开启服务隔离方式 以线程池方式&lt;br&gt;</span></span><br><span class="line"><span class="comment">	 *                     默认开启服务降级执行方法orderToMemberUserInfoHystrixFallback&lt;br&gt;</span></span><br><span class="line"><span class="comment">	 *                     默认开启服务熔断机制&lt;br&gt;</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"orderToMemberUserInfoHystrixFallback"</span>)</span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/orderToMemberUserInfoHystrix"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseBase <span class="title">orderToMemberUserInfoHystrix</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"orderToMemberUserInfoHystrix:"</span> + <span class="string">"线程池名称:"</span> + Thread.currentThread().getName());</span><br><span class="line">		<span class="keyword">return</span> memberServiceFeigin.getUserInfo();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseBase <span class="title">orderToMemberUserInfoHystrixFallback</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> setResultSuccess(<span class="string">"返回一个友好的提示：服务降级,服务器忙，请稍后重试!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 订单服务接口</span></span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/orderInfo"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseBase <span class="title">orderInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"orderInfo:"</span> + <span class="string">"线程池名称:"</span> + Thread.currentThread().getName());</span><br><span class="line">		<span class="keyword">return</span> setResultSuccess();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Hystrix 有两种方式配置保护服务 通过注解和接口形式</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>reset方式的调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MemberService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RestTemplate restTemplate;</span><br><span class="line">    <span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"orderError"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getOrderByUserList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> restTemplate.getForObject(<span class="string">"http://service-member/getuser"</span>, List.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">orderError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; listUser = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        listUser.add(<span class="string">"not orderUser list"</span>);</span><br><span class="line">        <span class="keyword">return</span> listUser;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置文件中添加：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###超时时间,不配置默认是一秒，实际开发之中需要进行配置</span></span><br><span class="line"><span class="attr">hystrix:</span></span><br><span class="line"><span class="attr">  command:</span></span><br><span class="line"><span class="attr">    default:</span></span><br><span class="line"><span class="attr">      execution:</span></span><br><span class="line"><span class="attr">        isolation:</span></span><br><span class="line"><span class="attr">          thread:</span></span><br><span class="line"><span class="attr">            timeoutInMilliseconds:</span> <span class="number">4000</span></span><br></pre></td></tr></table></figure>
+<p>主类中需要添加：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableHystrix</span>  <span class="comment">// 开启断路器</span></span><br></pre></td></tr></table></figure>
+<p>feigin调用方式：</p>
+<p>配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line"><span class="attr">   hystrix:</span></span><br><span class="line"><span class="attr">     enabled:</span> <span class="literal">true</span> <span class="comment"># 开启断路器</span></span><br><span class="line"><span class="comment">#hystrix:</span></span><br><span class="line"><span class="comment">#   command: </span></span><br><span class="line"><span class="comment">#     default: </span></span><br><span class="line"><span class="comment">#       execution: </span></span><br><span class="line"><span class="comment">#        isolation:</span></span><br><span class="line"><span class="comment">#         thread: </span></span><br><span class="line"><span class="comment">#          timeoutInMilliseconds: 4000</span></span><br></pre></td></tr></table></figure>
+<p>service</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient</span>(value = <span class="string">"service-member"</span>,fallback= MemberFeignService.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MemberFeign</span> </span>&#123;</span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/getuser"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getOrderByUserList</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>serviceImpl也就是服务降级调用的类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MemberFeignService</span> <span class="keyword">implements</span> <span class="title">MemberFeign</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getOrderByUserList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            List&lt;String&gt; listUser = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">            listUser.add(<span class="string">"not orderUser list"</span>);</span><br><span class="line">            <span class="keyword">return</span> listUser;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>controller:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FeignMemberController</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> MemberFeign memberFeign;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/getFeignOrderByUserList"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getFeignOrderByUserList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> memberFeign.getOrderByUserList();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@RequestMapping</span>(<span class="string">"/getOrderFeign"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getOrderFeign</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"getOrderFeign"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -330,16 +219,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/Hystrix/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/23/Hystrix/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/05/23/ribbon负载均衡实现/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/23/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -359,79 +316,14 @@
 
 
 
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/23/hello-world/">Hello World</a>
-    </h1>
   
 
-        
-        <a href="/2019/05/23/hello-world/" class="archive-article-date">
-  	<time datetime="2019-05-23T01:49:29.200Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -454,8 +346,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

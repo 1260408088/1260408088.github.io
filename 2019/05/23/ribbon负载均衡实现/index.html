@@ -8,13 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="1.负载均衡原理（轮训）客户端请求的总次数对服务器集群列表数目进行求余运算  当前请求总数为1，服务器列表的集群为2，1%2=1。所以当前访问下标为 List [1] 的服务器 当前请求总数为2，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [0] 的服务器 当前请求总数为3，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [1] 的服务器  说明总数是从最开始访">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/23/ribbon负载均衡实现/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.负载均衡原理（轮训）客户端请求的总次数对服务器集群列表数目进行求余运算  当前请求总数为1，服务器列表的集群为2，1%2=1。所以当前访问下标为 List [1] 的服务器 当前请求总数为2，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [0] 的服务器 当前请求总数为3，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [1] 的服务器  说明总数是从最开始访">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T03:48:08.262Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="1.负载均衡原理（轮训）客户端请求的总次数对服务器集群列表数目进行求余运算  当前请求总数为1，服务器列表的集群为2，1%2=1。所以当前访问下标为 List [1] 的服务器 当前请求总数为2，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [0] 的服务器 当前请求总数为3，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [1] 的服务器  说明总数是从最开始访">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,112 +154,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-springCloud入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-Springcloud的模块"><a href="#1-Springcloud的模块" class="headerlink" title="1.Springcloud的模块"></a>1.Springcloud的模块</h1><ul>
-<li>rest、feign 客户端调用工具</li>
-<li>ribbon 负载均衡</li>
-<li>zuul 接口网关</li>
-<li>euraka 服务注册中心</li>
-<li>Hystrix 熔断器</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/05/23/springCloud入门/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/springCloud入门/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-springCloud配置中心" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/springCloud配置中心/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ribbon负载均衡实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-ribbon负载均衡实现" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
@@ -267,11 +166,37 @@
 <li>当前请求总数为3，服务器列表的集群为2，2%2=0。所以当前访问下标为 List [1] 的服务器</li>
 </ul>
 <p>说明总数是从最开始访问开始累加的。</p>
-        
-          <a class="article-more-a" href="/2019/05/23/ribbon负载均衡实现/#more">more >></a>
-        
+<a id="more"></a>
+<h1 id="2-带权重负载均衡解析"><a href="#2-带权重负载均衡解析" class="headerlink" title="2.带权重负载均衡解析"></a>2.带权重负载均衡解析</h1><p>轮训的方式在实际开发之中并不实际，因为不可能每一台服务器的性能都是相同的，所以带权重的更为实际一些</p>
+<p>求得最大公约数与最大权重值，每满足一次返回服务器后，减去最小权重值然后接着循环！直到将服务器列表循环完毕一次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeightRoundRobin</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/**上次选择的服务器*/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> currentIndex = -<span class="number">1</span>;  </span><br><span class="line">    <span class="comment">/**当前调度的权值*/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> currentWeight = <span class="number">0</span>;  </span><br><span class="line">    <span class="comment">/**最大权重*/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxWeight;  </span><br><span class="line">    <span class="comment">/**权重的最大公约数*/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> gcdWeight;  </span><br><span class="line">    <span class="comment">/**服务器数*/</span>  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> serverCount;  </span><br><span class="line">    <span class="keyword">private</span> List&lt;Server&gt; servers = <span class="keyword">new</span> ArrayList&lt;Server&gt;(); </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 得到两值的最大公约数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">greaterCommonDivisor</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;  </span><br><span class="line">    	<span class="keyword">if</span>(a % b == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> b;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> greaterCommonDivisor(b,a % b);</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 得到list中所有权重的最大公约数，实际上是两两取最大公约数d，然后得到的d</span></span><br><span class="line"><span class="comment">     * 与下一个权重取最大公约数，直至遍历完</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">greatestCommonDivisor</span><span class="params">(List&lt;Server&gt; servers)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> divisor = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> index = <span class="number">0</span>, len = servers.size(); index &lt; len - <span class="number">1</span>; index++)&#123;  </span><br><span class="line">            <span class="keyword">if</span>(index ==<span class="number">0</span>)&#123;  </span><br><span class="line">                divisor = greaterCommonDivisor(  </span><br><span class="line">                            servers.get(index).getWeight(), servers.get(index + <span class="number">1</span>).getWeight());  </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">                divisor = greaterCommonDivisor(divisor, servers.get(index).getWeight());  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> divisor;  </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 得到list中的最大的权重</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">greatestWeight</span><span class="params">(List&lt;Server&gt; servers)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> weight = <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">for</span>(Server server : servers)&#123;  </span><br><span class="line">            <span class="keyword">if</span>(weight &lt; server.getWeight())&#123;  </span><br><span class="line">                weight = server.getWeight();  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> weight;  </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     *  算法流程：  </span></span><br><span class="line"><span class="comment">     *  假设有一组服务器 S = &#123;S0, S1, …, Sn-1&#125; </span></span><br><span class="line"><span class="comment">     *  有相应的权重，变量currentIndex表示上次选择的服务器 </span></span><br><span class="line"><span class="comment">     *  权值currentWeight初始化为0，currentIndex初始化为-1 ，当第一次的时候返回 权值取最大的那个服务器， </span></span><br><span class="line"><span class="comment">     *  通过权重的不断递减 寻找 适合的服务器返回</span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">     <span class="function"><span class="keyword">public</span> Server <span class="title">getServer</span><span class="params">()</span></span>&#123;  </span><br><span class="line">         <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;  </span><br><span class="line">             currentIndex = (currentIndex + <span class="number">1</span>) % serverCount;  </span><br><span class="line">             <span class="keyword">if</span>(currentIndex == <span class="number">0</span>)&#123;  </span><br><span class="line">                 currentWeight = currentWeight - gcdWeight;  </span><br><span class="line">                 <span class="keyword">if</span>(currentWeight &lt;= <span class="number">0</span>)&#123;  </span><br><span class="line">                     currentWeight = maxWeight;  </span><br><span class="line">                     <span class="keyword">if</span>(currentWeight == <span class="number">0</span>)&#123;  </span><br><span class="line">                         <span class="keyword">return</span> <span class="keyword">null</span>;  </span><br><span class="line">                     &#125;  </span><br><span class="line">                 &#125;  </span><br><span class="line">             &#125;  </span><br><span class="line">             <span class="keyword">if</span>(servers.get(currentIndex).getWeight() &gt;= currentWeight)&#123;  </span><br><span class="line">                 <span class="keyword">return</span> servers.get(currentIndex);  </span><br><span class="line">             &#125;  </span><br><span class="line">         &#125;  </span><br><span class="line">     &#125; </span><br><span class="line">     </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;  </span><br><span class="line">         servers.add(<span class="keyword">new</span> Server(<span class="string">"192.168.191.1"</span>, <span class="number">1</span>));  </span><br><span class="line">         servers.add(<span class="keyword">new</span> Server(<span class="string">"192.168.191.2"</span>, <span class="number">2</span>));  </span><br><span class="line">         servers.add(<span class="keyword">new</span> Server(<span class="string">"192.168.191.4"</span>, <span class="number">4</span>));  </span><br><span class="line">         servers.add(<span class="keyword">new</span> Server(<span class="string">"192.168.191.8"</span>, <span class="number">8</span>));  </span><br><span class="line">        </span><br><span class="line">           </span><br><span class="line">         maxWeight = greatestWeight(servers);  </span><br><span class="line">         gcdWeight = greatestCommonDivisor(servers);  </span><br><span class="line">         serverCount = servers.size();  </span><br><span class="line">     &#125;  </span><br><span class="line">     </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">    	  WeightRoundRobin weightRoundRobin = <span class="keyword">new</span> WeightRoundRobin();  </span><br><span class="line">          weightRoundRobin.init();  </span><br><span class="line">            </span><br><span class="line">          <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">15</span>; i++)&#123;  </span><br><span class="line">              Server server = weightRoundRobin.getServer();  </span><br><span class="line">              System.out.println(<span class="string">"server "</span> + server.getIp() + <span class="string">" weight="</span> + server.getWeight());  </span><br><span class="line">          &#125;  </span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Server</span></span>&#123;  </span><br><span class="line">	 <span class="keyword">private</span> String ip;  </span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> weight;  </span><br><span class="line">     </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">Server</span><span class="params">(String ip, <span class="keyword">int</span> weight)</span> </span>&#123;  </span><br><span class="line">         <span class="keyword">this</span>.ip = ip;  </span><br><span class="line">         <span class="keyword">this</span>.weight = weight;  </span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getIp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> ip;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIp</span><span class="params">(String ip)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.ip = ip;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> weight;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWeight</span><span class="params">(<span class="keyword">int</span> weight)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.weight = weight;</span><br><span class="line">	&#125;  </span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-手写ribbon的负载均衡"><a href="#3-手写ribbon的负载均衡" class="headerlink" title="3.手写ribbon的负载均衡"></a>3.手写ribbon的负载均衡</h1><p>在服务的消费端写一个controller,原理就是轮训调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    DiscoveryClient discoveryClient;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RestTemplate restTemplate;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"getblance"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getBance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ServiceInstance instance = getInstance();</span><br><span class="line">        String url = instance.getUri().toString() + <span class="string">"getuser"</span>;</span><br><span class="line">        String result = restTemplate.getForObject(url, String.class);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServiceInstance <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;ServiceInstance&gt; instances = discoveryClient.getInstances(<span class="string">"service-member"</span>);</span><br><span class="line">        <span class="keyword">if</span> (instances == <span class="keyword">null</span> || instances.size() &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> totalsize = instances.size();</span><br><span class="line">        <span class="keyword">int</span> serverindex = count % totalsize;</span><br><span class="line">        count++;</span><br><span class="line">        ServiceInstance serviceInstance = instances.get(serverindex);</span><br><span class="line">        <span class="keyword">return</span> serviceInstance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>写这个例子的时候，需要讲本地在配置的 @LoadBalanced 给注释掉</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -280,16 +205,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/ribbon负载均衡实现/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/23/ribbon负载均衡实现/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/05/23/springCloud配置中心/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/23/Hystrix/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -309,129 +302,14 @@
 
 
 
-
   
-    <article id="post-Hystrix" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-服务器雪崩"><a href="#1-服务器雪崩" class="headerlink" title="1.服务器雪崩"></a>1.服务器雪崩</h1><p>在高并发的情况下，所有的服务器线程都在处理高并发下的请求，倒置其他请求无法处理。A服务请求B服务，tomcat默认并发是50个，20000个请求一起过来时，B服务都在处理A服务的请求，其他请求（直接访问B服务的请求）<span style="color:red">都在等待状态！</span></p>
-        
-          <a class="article-more-a" href="/2019/05/23/Hystrix/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/Hystrix/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/23/hello-world/">Hello World</a>
-    </h1>
   
 
-        
-        <a href="/2019/05/23/hello-world/" class="archive-article-date">
-  	<time datetime="2019-05-23T01:49:29.200Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/23/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -454,8 +332,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
