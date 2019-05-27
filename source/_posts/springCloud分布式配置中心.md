@@ -121,7 +121,7 @@ public class ServerApp {
 
 此时将项目运行起来，然后浏览器输入 localhost:8889/server-config-dev.properties 你就能看到
 
-![1](1.png)
+![1](1.PNG)
 
 配置文件的全貌，如果你多放几个配置文件也是可以的换个名字读就行了
 
@@ -252,7 +252,7 @@ public class AgeController {
 
 访问 localhost:8881/getAge  效果如下
 
-![2](2.png)
+![2](2.PNG)
 
 # 6.手动刷新配置文件
 
@@ -297,7 +297,7 @@ management:
 
 然后直接接着访问  localhost:8881/getAge  
 
-![2](2.png)
+![2COPY](2.PNG)
 
 结果没变化，不是浏览器的缓存的原因！你需要先访问一下这个地址刷新一下才可以
 
@@ -305,7 +305,7 @@ http://127.0.0.1:8881/actuator/refresh    postman的post方式访问，浏览器
 
 然后就是阔以了 
 
-![3](3.png)
+![3](3.PNG)
 
 ## 2.实时刷新
 
