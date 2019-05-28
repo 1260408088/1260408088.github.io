@@ -1,7 +1,7 @@
 ---
 title: swaggerr的使用
 date: 2019-05-27 22:40:33
-categories: seagger
+categories: swagger
 tags: 接口文档
 ---
 
@@ -16,6 +16,8 @@ tags: 接口文档
 - 缺乏在线接口测试，通常需要使用相应的API测试工具，比如postman、SoapUI等
 
 - 接口文档太多，不便于管理
+
+<!--more-->
 
 # Swagger具有以下优点
 
@@ -105,4 +107,111 @@ public class SwaggerDemoController {
 }
 ```
 
-<https://www.liangzl.com/get-article-detail-820.html>  明天再研究
+访问地址  <http://localhost:8080//swagger-ui.html#/>
+
+# zuul网关整合Swagger
+
+zuulServer 网关的配置，其他的配置忽略了
+
+``` yaml
+zuul:
+  routes:
+    api-a:
+      path: /api-member/**
+      service-id: service-member
+    api-b:
+      path: /api-order/**
+      service-id: service-order
+```
+
+依赖文件,统一都用这一个
+
+``` xml
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.5.0</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.5.0</version>
+</dependency>
+```
+
+zuulServer的Swagger的配置：
+
+``` java
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo());
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("分布式购物系统")
+                .description("购物系统接口文档说明")
+                .termsOfServiceUrl("http://localhost:8081")
+                .contact(new Contact("guoning", "", "1260408088@qq.com"))
+                .version("1.0")
+                .build();
+    }
+}
+
+```
+
+orderServer与userServer配置相同：
+
+``` java
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+    @Bean
+    public Docket createRestApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.order.controller")) // 扫描包
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() { // 下面的信息，自行更改
+        return new ApiInfoBuilder()
+                .title("购物系统-订单模块")
+                .description("购物系统订单模块接口文档说明")
+                .termsOfServiceUrl("http://localhost:8083")
+                .contact(new Contact("guoning", "", "1260408088@qq.com"))
+                .version("1.0")
+                .build();
+    }
+}
+```
+
+controller中的配置,
+
+``` java
+@RestController
+@RequestMapping("api")
+@Api("swaggerDemoController相关的api")
+public class SwaggerDemoController {
+	
+    private static final Logger logger = LoggerFactory.getLogger(SwaggerDemoController.class);
+
+    @ApiOperation(value = "根据id查询学生信息", notes = "查询数据库中某个的学生信息") // 描述
+    @ApiImplicitParam(name = "id", value = "学生ID", paramType = "path",required = true, dataType = "Integer") // 参数描述
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)  // 必须声明请求方法，负责会生成好多个无用说明
+    public String getStudent(@PathVariable int id) {
+        logger.info("开始查询某个学生信息");
+        return "success";
+    }
+
+}
+```
+
+就到这了，其中有参考了 <https://www.jianshu.com/p/af4ff19afa04> ，因为课程视频中不太详细。
