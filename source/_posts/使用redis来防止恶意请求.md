@@ -148,7 +148,7 @@ public class DdosIntercepors implements HandlerInterceptor {
 }
 ```
 
-# controller层：
+# controller层
 
 ``` java
 @RestController
@@ -164,14 +164,17 @@ public class UserController {
 }
 ```
 
-# 拦截的效果：
+# 拦截的效果
 
 ![1](1.PNG)
 
-补充说明redis的key设置过期时间后，如果你重新设置了key的值以后，过期时间会被覆盖就不存在了，但是list与set的添加元素的操作是不会的，使用时如果想更新值还不想失效时间被覆盖，建议使用 SETRANGE key [value] 来进行值的更新
+# 补充说明
+
+redis的key设置过期时间后，如果你重新设置了key的值以后，过期时间会被覆盖就不存在了，但是list与set的添加元素的操作是不会的，使用时如果想更新值还不想失效时间被覆盖，建议使用 SETRANGE key [value] 来进行值的更新
 
 ``` shell
 set key "3"  // 设置key为“3”
 setrange key 0 "4" // 从第零位开始覆盖，我这里的更新数字是递增的，所以设置闷着头为 0 就可以了
 ```
 
+脑子瓦特了，让值自增不好吗？值自增也是不会对过期时间有什么操纵的。
