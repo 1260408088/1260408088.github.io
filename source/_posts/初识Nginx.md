@@ -111,3 +111,25 @@ server {
 
 ![4](4.PNG)
 
+# 反向代理的配置
+
+``` xml
+     ### 当客户端访问nginx 的时候，拦截域名访问为www.itmayiedu.com,监听的端口号为80,匹配所有url地址
+	###  最终查找/data/www目录文件地址
+    server {
+	## server 监听的端口号
+       listen       80;
+	   ###服务name 配置域名,配置域名
+       server_name  www.itmayiedu.com; # 
+        #charset koi8-r;
+        #access_log  logs/host.access.log  main;
+        ###location 匹配所有url地址
+    location / {
+		###nginx 反向代理转发的真实ip地址
+		proxy_pass http://127.0.0.1:8080;
+         index  index.html index.htm;
+        }
+    }
+```
+
+访问 www.itmayiedu.com 就给转到  http://127.0.0.1:8080 上。在浏览器上输入www.itmayiedu.com，其实也是有端口的，端口就是80，默认端口，只是省略了而已。
