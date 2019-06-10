@@ -1,9 +1,38 @@
 ---
-title: nginx(一)copy
-date: 2019-06-07 13:52:26
+title: nginx(一)
+date: 2019-06-03 17:56:10
 categories: nginx
-tags: [负载均衡,nginx]
+tags: [nginx]
 ---
+
+# localtion的语法
+
+ 已=开头表示精确匹配
+ 如 A 中只匹配根目录结尾的请求，后面不能带任何字符串。
+
+<!--more-->
+
+^~ 开头表示uri以某个常规字符串开头，不是正则匹配
+
+~ 开头表示区分大小写的正则匹配;
+
+~* 开头表示不区分大小写的正则匹配
+
+/ 通用匹配, 如果没有其它匹配,任何请求都会匹配到
+
+几个案例：
+
+``` xml
+server {
+        listen       80;
+        server_name  www.itmayiedu.com;
+		#精确匹配,/后面不能带任何字符
+        location =/ {
+		    proxy_pass http://127.0.0.1:8080;
+            index  index.html index.htm;
+        }
+}
+```
 
 # 负载均衡的几种算法
 
@@ -13,15 +42,13 @@ tags: [负载均衡,nginx]
 - faiil
 - url
 
-<!--more-->
-
-## 	tip
+## tip
 
 在nginx1.9之前nginx指支持七层负载均衡，应用层的负载均衡（所谓七层，物理层、数据链路层、网络层、传输层、会话层、表示层、应用层、）在1.9之后支持了四层传输协议也就是网络层的负载均衡。本质上时支持那个层的协议。
 
 # 负载均衡的配置
 
-``` xml
+```xml
 #上游服务器 
 upstream  backServer{
 	    server 127.0.0.1:8080;
@@ -42,7 +69,7 @@ upstream  backServer{
 
 ## 带权重的配置
 
-``` xml
+```xml
 upstream  backServer{
 	server 127.0.0.1:8080 weight=1;
 	server 127.0.0.1:8081 weight=2;
@@ -64,7 +91,7 @@ upstream  backServer{
 
 每个请求按访问IP的哈希结果分配，使来自同一个IP的访客固定访问一台后端服务器，并且可以有效解决动态网页存在的session共享问题。俗称IP绑定。
 
-``` xml
+```xml
 upstream  backServer{
 	    server 127.0.0.1:8080 ;
 		server 127.0.0.1:8081 ;
@@ -87,7 +114,7 @@ upstream  backServer{
 
 当上游服务器(真实访问服务器),一旦出现故障或者是没有及时相应的话，应该直接轮训到下一台服务器，保证服务器的高可用。
 
-``` xml
+```xml
 server {
         listen       80;
         server_name  www.itmayiedu.com;
@@ -104,6 +131,4 @@ server {
         }
     }
 ```
-
-
 
