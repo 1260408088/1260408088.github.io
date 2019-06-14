@@ -51,6 +51,8 @@ menu:
   #about: /about/
   archives: /archives/
   tags: /tags/
+  download: /download/
+  #schedule: /calendar 
   #sitemap: /sitemap.xml
   #commonweal: /404/
 

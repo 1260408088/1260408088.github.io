@@ -1,0 +1,20 @@
+<!-- Calendar -->
+<% if (config.calendar){ %>
+    <script src="<%- config.root %>js/calendar.js"></script>
+    <script src="<%- config.root %>js/languages.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#calendar').aCalendar(
+                '<%= theme.calendar.language || config.language %>',
+                {single:<%= config.calendar.single %>, root:'<%= config.calendar.root %>'}
+            );
+            // 下面的代码用于页面测试，可以不添加
+            <% if(config.calendar.sample_id){ %>
+                $('#<%= config.calendar.sample_id %>').aCalendar(
+                    '<%= theme.calendar.language || config.language %>',
+                    {single:<%= config.calendar.single %>, root:'<%= config.calendar.root %>'}
+                );
+            <% } %>
+        });
+    </script>
+<% } %>
