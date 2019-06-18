@@ -132,6 +132,5 @@ neat_js:
 
 # Calendar
 calendar:
-  single: true
-  root: calendar/ # only used when single=false
-  sample_id: calendar-sample # only for samples in page content
+    single: true
+    root: calendar/

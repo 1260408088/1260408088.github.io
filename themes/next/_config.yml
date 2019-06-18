@@ -476,7 +476,7 @@ calendar:
   showDeleted: false
   singleEvents: true
   maxResults: 250
-
+  language: zh-CN
 # Algolia Search
 algolia_search:
   enable: false
@@ -685,3 +685,4 @@ live2d:
     height: 300
   mobile:
     show: false
+ 
