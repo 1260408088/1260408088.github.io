@@ -7,8 +7,8 @@
   },
   "dependencies": {
     "hexo": "^3.9.0",
-    "hexo-asset-image": "^1.0.0",
-    "hexo-blog-encrypt": "^2.1.1",
+    "hexo-asset-image": "git+https://github.com/7ym0n/hexo-asset-image.git",
+    "hexo-blog-encrypt": "^2.2.0",
     "hexo-deployer-git": "^1.0.0",
     "hexo-generator-archive": "^0.1.5",
     "hexo-generator-calendar": "git://github.com/howiefh/hexo-generator-calendar.git",
