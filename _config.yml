@@ -5,7 +5,7 @@
 # Site
 title: 会飞的扫帚
 subtitle:
-description: 就是用来当笔记用的，有什么不当之处，还请见谅。如若帮忙指出，不胜感激
+description: 仅作笔记，如有不当，还望指出，非常感谢!
 keywords:
 author: guoning
 language: zh-Hans
@@ -13,7 +13,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://1260408088.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
