@@ -31,7 +31,7 @@ tags: [配置,部署]
       listen       80;
       server_name  static.itmayiedu.com;
       location /static/imgs {
-            root D:/; #会直接匹配 nginx下的static/imgs目录的
+            root D:/; #会直接匹配D:下的static/imgs目录的 D:/static/imgs
 		   index  index.html index.htm;
        }
     }
