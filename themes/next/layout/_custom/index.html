@@ -31,7 +31,13 @@
 <script>
     $(function () {
         head = "https://1260408088.github.io";
-		transtime=300; // dong
+		transtime=300; // 动画
+		var download = $(".menu-item-download").children("a").children("i");
+		download.removeClass("fa-question-circle");
+		download.addClass("fa-download"); // fa-book  
+		var book = $(".menu-item-book").children("a").children("i");
+		book.removeClass("fa-question-circle");
+		book.addClass("fa-book");
     });
     $('#ca').calendar({
         width: 200,
