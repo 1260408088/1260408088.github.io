@@ -168,7 +168,7 @@ class LayoutDemo extends StatelessWidget {
 
 ```
 
-![水平布局](1.png)
+![水平布局](1.PNG)
 
 ## 垂直布局
 
@@ -206,7 +206,7 @@ class LayoutDemo extends StatelessWidget {
 }
 ```
 
-![垂直布局](2.png)
+![垂直布局](2.PNG)
 
 ## Container布局
 
@@ -302,7 +302,7 @@ class LayoutDemo extends StatelessWidget {
 
 ```
 
-![container布局](3.png)
+![container布局](3.PNG)
 
 demo中的图片需要在配置文件中配置
 
@@ -436,7 +436,7 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![地名瞎编的](5.png)
+![地名瞎编的](5.PNG)
 
 ## stack
 
@@ -492,7 +492,7 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![stack](6.png)
+![stack](6.PNG)
 
 ## 层叠定位布局
 
@@ -540,7 +540,7 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![](7.png)
+![](7.PNG)
 
 ## 滚动布局
 
@@ -601,7 +601,7 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![](8.png)
+![](8.PNG)
 
 ## Card布局
 
@@ -663,7 +663,7 @@ class MyApp extends StatelessWidget {
   );
 }
 ```
-![](9.png)
+![](9.PNG)
 
 ​	于之前学习Android的时候，布局内容要更丰富一些，这布局只是一个浅显的入门，还要接着深入的。
 
