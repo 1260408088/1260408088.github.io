@@ -134,7 +134,6 @@ neat_js:
     - '**/*.min.js'
     - '**/jquery.fancybox.pack.js'
     - '**/index.js'
-    
 
 # Calendar
 calendar:
