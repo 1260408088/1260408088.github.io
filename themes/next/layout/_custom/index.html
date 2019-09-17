@@ -65,19 +65,21 @@
                 $(".toast").hide(transtime);
                 $("#toast a").remove();
                 $("#toast br").remove();
+				if(mycalendarElement){
 					for (var i = 0; i < mycalendarElement.length; i++) {
 						let ordertime = mycalendarElement[i]["date"].substring(0, 10);
-						if (fulltime == ordertime) {
-							console.log(fulltime)
-							console.log(ordertime)
-							$(".toast").show("transtime");
-							var title = mycalendarElement[i]["title"];
-							var link = head + mycalendarElement[i]["link"];
-							$("#toast").append('<a style="text-decoration:none;border-bottom-color:#fff;font-family:等线 Light;color: #fff;font-size: 13px;"' + 'href="' + link + '">' + '<marquee scrollamount=5 onMouseOut="this.start()" onMouseOver="this.stop()">' + title + '</marquee></a><br/>');
+							if (fulltime == ordertime) {
+								console.log(fulltime)
+								console.log(ordertime)
+								$(".toast").show("transtime");
+								var title = mycalendarElement[i]["title"];
+								var link = head + mycalendarElement[i]["link"];
+								$("#toast").append('<a style="text-decoration:none;border-bottom-color:#fff;font-family:等线 Light;color: #fff;font-size: 13px;"' + 'href="' + link + '">' + '<marquee scrollamount=5 onMouseOut="this.start()" onMouseOver="this.stop()">' + title + '</marquee></a><br/>');
 
-							console.log(mycalendarElement[i]["link"]);
-						}
+								console.log(mycalendarElement[i]["link"]);
+							}
 					}
+				}
             }
             /*console.log('view:' + view);
             alert('date:' + date);
