@@ -168,7 +168,7 @@ class LayoutDemo extends StatelessWidget {
 
 ```
 
-![水平布局](1.PNG)
+![水平布局](1.png)
 
 ## 垂直布局
 
@@ -206,7 +206,7 @@ class LayoutDemo extends StatelessWidget {
 }
 ```
 
-![垂直布局](2.PNG)
+![垂直布局](2.png)
 
 ## Container布局
 
@@ -302,7 +302,7 @@ class LayoutDemo extends StatelessWidget {
 
 ```
 
-![container布局](3.PNG)
+![container布局](3.png)
 
 demo中的图片需要在配置文件中配置
 
@@ -363,6 +363,8 @@ class MyApp extends StatelessWidget {
 ![GridView](4.png)
 
 ## ListView
+
+### 静态列表
 
 ``` dart
 import 'package:flutter/material.dart';
@@ -436,7 +438,56 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![地名瞎编的](5.PNG)
+![地名瞎编的](5.png)
+
+### 动态列表
+
+``` dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+// TODO: implement build
+    return MaterialApp(
+        home: Scaffold(
+      appBar: AppBar(title: Text('FlutterDemo')),
+      body: HomeContent(),
+    ));
+  }
+}
+
+class HomeContent extends StatelessWidget {
+  List list = new List();
+
+  HomeContent({Key key}) : super(key: key) {
+    for (var i = 0; i < 20; i++) {
+      list.add("这是第${i}条数据");
+    }
+    print(list);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+	// TODO: implement build
+    return ListView.builder(
+      itemCount: this.list.length,
+      itemBuilder: (context, index) {
+		// print(context);
+        return ListTile(
+          leading: Icon(Icons.phone),
+          title: Text("${list[index]}"),
+        );
+      },
+    );
+  }
+}
+
+```
+
+
 
 ## stack
 
@@ -492,7 +543,7 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![stack](6.PNG)
+![stack](6.png)
 
 ## 层叠定位布局
 
@@ -540,7 +591,7 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![](7.PNG)
+![](7.png)
 
 ## 滚动布局
 
@@ -601,7 +652,7 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![](8.PNG)
+![](8.png)
 
 ## Card布局
 
@@ -663,7 +714,7 @@ class MyApp extends StatelessWidget {
   );
 }
 ```
-![](9.PNG)
+![](9.png)
 
 ​	于之前学习Android的时候，布局内容要更丰富一些，这布局只是一个浅显的入门，还要接着深入的。
 
