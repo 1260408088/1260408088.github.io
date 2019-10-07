@@ -2,7 +2,7 @@
 title: 并发编程-java内存模型
 date: 2019-06-13 18:24:45
 categories: 并发编程
-tags: [java内存模型，多线程]
+tags: [java内存模型,多线程]
 ---
 # 线程安全
 
