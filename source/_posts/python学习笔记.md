@@ -13,6 +13,8 @@ tags: [python,其他语言]
 
 ![zifusuoyin](zifusuoyin.PNG)
 
+<!--more-->
+
 2. 从字符串中取单个字符串或者字串的方式分别为:
 
 ``` python
@@ -199,4 +201,124 @@ def drawGap():
 ```
 
 ![](date1.PNG)
+
+## python的第三方库的安装
+
+​	使用pip进行安装，有时候会有pip在cmd下不是命令的报错，需要将python的安装目录下的Script文件夹加入到Path的环境变量之中即可。
+
+``` shell
+pip install pyinstaller
+```
+
+pyinstaller这个第三方库可以将python的程序打包为直接可执行的程序，比如exe之类的。打包命令为：
+
+``` python
+pyinstaller -F <文件名.py>
+```
+
+相关参数如下：
+
+![](install.PNG)
+
+加图标的打包命令：
+
+``` shell
+pyinstaller -i <图标名称.ico> -F <文件名.py>
+```
+
+## python递归
+
+基本上都一样，这记一个科恩曲线，表示一下：
+
+``` python
+import turtle
+def koch(size,n):
+    if n==0:
+        turtle.fd(size)
+    else:
+        for angle in [0,60,-120,60]:
+            turtle.left(angle)
+            koch(size/3,n-1)
+def main():
+    turtle.setup(600,600)
+    turtle.penup()
+    turtle.goto(-200,100)
+    turtle.pendown()
+    turtle.pensize(2)
+    level=5
+    koch(400,level)
+    turtle.right(120)
+    koch(400,level)
+    turtle.right(120)
+    koch(400, level)
+    turtle.hideturtle()
+    turtle.done()
+main()
+```
+
+![](xuehua.PNG)
+
+## python集合
+
+python的集合没有重复的元素，使用{}或者set()建立集合
+
+``` python
+A={"python",123,("python",123)}
+print(A) #{'python', ('python', 123), 123}
+B=set("pypy123") 
+print(B) # {'2', '3', '1', 'p', 'y'}
+```
+
+集合的操作符
+
+![](jiaochabingbu.PNG)
+
+```  返回True+
+S <= T 或者 S < T 返回True/False，判断S和T的子集关系
+S >= T 或者 S > T 返回True/False, 判断S和T的包含关系
+```
+
+![](zengqiangcaozuofu.PNG)
+
+集合的操作方法
+
+![](jihe1.PNG)
+
+![](jihe2.PNG)
+
+数组去重：
+
+``` python
+ls = ["p","p","y","y",123]
+s = set(ls) # 利用集合无重复的特点
+it = list(s) # 将集合转换回数组
+```
+
+## python序列
+
+``` python
+ls = ["123",123,"lsss"]
+```
+
+元组类型的方法：
+
+![](xulie1.PNG)
+
+![](xuelie2.PNG)
+
+## python元组类型
+
+元组类型一旦被创建就不可以被修改了，可以用圆括号表示也可以不用，python的函数中可以返回两个值
+
+``` python
+def func():
+    return 1,2
+```
+
+在内部会被解析成为一个元组类型返回出去;因为元组的不可改变的特性，可以将序列改变为元组起到保护数据的作用:
+
+``` python
+lt = tuole(ls) # 将序列变为元组
+ls = list(lt)  # 将序列变为元组 
+```
 
