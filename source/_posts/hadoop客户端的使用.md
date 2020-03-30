@@ -7,6 +7,8 @@ tags: [大数据,工具]
 
 ​	使用java代码，将本地文件传递到hdfs中。需要自己放入依赖的jar包，这是一些实例代码，作为参考使用
 
+<!--more-->
+
 ``` java
 package com.king.bigdata;
 import org.apache.hadoop.conf.Configuration;
