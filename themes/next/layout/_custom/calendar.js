@@ -9,65 +9,80 @@
     }
 }(this, function ($) {
 
+    // default config
     var defaults = {
 
-          
+            // 宽度
             width: 280,
-            
+            // 高度, 不包含头部，头部固定高度
             height: 280,
 
             zIndex: 1,
 
-            
+            // selector or element
+            // 设置触发显示的元素，为null时默认显示
             trigger: null,
 
-            
+            // 偏移位置，可设正负值
+            // trigger 设置时生效
             offset: [0, 1],
 
-            
+            // 自定义类，用于重写样式
             customClass: '',
 
-           
+            // 显示视图
+            // 可选：date, month
             view: 'date',
 
-           
+            // 默认日期为当前日期
             date: new Date(),
             format: 'yyyy/mm/dd',
 
-           
+            // 一周的第一天
+            // 0表示周日，依次类推
             startWeek: 0,
 
-           
+            // 星期格式
             weekArray: ['日', '一', '二', '三', '四', '五', '六'],
 
-            
+            // 设置选择范围
+            // 格式：[开始日期, 结束日期]
+            // 开始日期为空，则无上限；结束日期为空，则无下限
+            // 如设置2015年11月23日以前不可选：[new Date(), null] or ['2015/11/23']
             selectedRang: null,
 
-            
+            // 日期关联数据 [{ date: string, value: object }, ... ]
+            // 日期格式与 format 一致
+            // 如 [ {date: '2015/11/23', value: '面试'} ]
             data: null,
 
-            
+            // 展示关联数据
+            // 格式化参数：{m}视图，{d}日期，{v}value
+            // 设置 false 表示不显示
             label: '{d}\n{v}',
 
-          
+            // 切换字符
             prev: '&lt;',
             next: '&gt;',
 
-            
+            // 切换视图
+            // 参数：view, y, m
             viewChange: $.noop,
 
-            
+            // view: 视图
+            // date: 不同视图返回不同的值
+            // value: 日期关联数据
             onSelected: function (view, date, value) {
-                
+                // body...
             },
 
-            
+            // 参数同上
             onMouseenter: $.noop,
 
             onClose: $.noop
         },
 
-       
+        // static variable
 
         ACTION_NAMESPACE = 'data-calendar-',
 
@@ -135,7 +150,7 @@
         ],
         OS = Object.prototype.toString;
 
-   
+    // utils
 
     function isDate(obj) {
         return OS.call(obj) === '[object Date]';
@@ -150,7 +165,7 @@
         return el.getAttribute('class') || el.getAttribute('className');
     }
 
-   
+    // extension methods
 
     String.prototype.repeat = function (data) {
         return this.replace(/\{\w+\}/g, function (str) {
@@ -250,6 +265,7 @@
     }
 
 
+    // Calendar class
 
     function Calendar(element, options) {
         this.$element = $(element);
@@ -334,7 +350,7 @@
             var year, month, firstWeek, daysNum, prevM, prevDiff,
                 dt = this.date,
 
-                $days = $('<ol id=' + 'cal' + m + " " + 'class="days"></ol>'); 
+                $days = $('<ol id=' + 'cal' + m + " " + 'class="days"></ol>'); // 为月份下的日子添加id
 
             if (isDate(y)) {
                 year = y.getFullYear();
@@ -350,7 +366,7 @@
             prevM = Date.getPrevMonth(year, month);
             prevDaysNum = Date.getDaysNum(year, prevM.m);
             nextM = Date.getNextMonth(year, month);
-        
+            // month flag
             var PREV_FLAG = 1,
                 CURR_FLAG = 2,
                 NEXT_FLAG = 3,
@@ -416,10 +432,14 @@
         },
         setMonthAction: function (y) {
             var m = this.date.getMonth() + 1;
-            setCurrentyear(y); 
-            
-            resolveyear(); 
-           
+            setCurrentyear(y); // 全局变量设置当前所在的year
+            //if(loadFlag==0){
+            resolveyear(); // 对年份中的月进行解析
+            //loadFlag=1;
+            //}else{
+            // 对年份下的月，再解析一次
+            //monthInyear();
+            // }
             this.$monthItems.children().removeClass(TODAY_CLASS);
             if (y === this.date.getFullYear()) {
                 this.$monthItems.children().eq(m - 1).addClass(TODAY_CLASS);
@@ -520,7 +540,7 @@
             var _this = this,
                 $dis = this.$dateItems,
                 exec = {
-                    prev: function () { 
+                    prev: function () {  // 月份向前
                         var pm = Date.getPrevMonth(y, m),
                             ppm = Date.getPrevMonth(y, m, 2),
                             $prevItem = _this.getDaysHtml(ppm.y, ppm.m);
@@ -535,12 +555,12 @@
                             $dis.prepend($prevItem).css('margin-left', '-100%');
                             $.isFunction(cb) && cb.call(_this);
                         });
-                        
+                        // 自定义函数 获得当前的年份与月份，设置给全局变量
                         setCurrentmonth(m);
                         setCurrentyear(y);
                         preMonth();
                     },
-                    next: function () { 
+                    next: function () { // 月份向后
                         var nm = Date.getNextMonth(y, m),
                             nnm = Date.getNextMonth(y, m, 2),
                             $nextItem = _this.getDaysHtml(nnm.y, nnm.m);
@@ -556,7 +576,7 @@
 
                             $.isFunction(cb) && cb.call(_this);
                         });
-
+                        // 自定义函数 获得当前的年份与月份，设置给全局变量
                         setCurrentmonth(m);
                         setCurrentyear(y);
                         nextMonth();
@@ -646,6 +666,7 @@
             var _this = this,
                 vc = _this.options.viewChange;
 
+            // view change
             _this.$element.on('click', DISPLAY_VD, function () {
                 var arr = _this.getDisDateValue();
                 _this.updateMonthView(arr[0], arr[1]);
@@ -659,6 +680,7 @@
                 vc('date', y);
             });
 
+            // arrow
             _this.$element.on('click', ARROW_DATE, function () {
                 var arr = _this.getDisDateValue(),
                     type = getClass(this),
@@ -679,6 +701,7 @@
                 vc('month', y);
             });
 
+            // selected
             _this.$element.on('click', '[' + ITEM_DAY + ']', function () {
                 var d = parseInt(this.innerHTML),
                     cls = getClass(this),
@@ -699,6 +722,7 @@
                 _this.options.onSelected.call(this, 'month', new Date(y, m - 1));
             });
 
+            // hover
             _this.$element.on('mouseenter', '[' + ITEM_DAY + ']', function (e) {
                 var arr = _this.getDisDateValue(),
                     day = new Date(arr[0], arr[1] - 1, parseInt(this.innerHTML));
@@ -773,11 +797,11 @@
     $.fn.calendar.defaults = defaults;
 }));
 
-function setCurrentyear(y) { 
+function setCurrentyear(y) { // 设置year
     changeYear = y;
 }
 
-function getCurrentyear() { 
+function getCurrentyear() { // 取出year
     return changeYear;
 }
 
@@ -789,28 +813,43 @@ function setCurrentmonth(m) {
     changeMonth = m;
 }
 
-function removeHaveClass() { 
+function removeHaveClass() { // 删除月份的样式
     $(".calendar-ct.month-items").children().removeClass("have have2 have3 have4 ");
 }
 
-function addHaveClass(m) { 
+function addHaveClass(m) { // 为月份添加样式
     $(".calendar-ct.month-items").children().eq(m - 1).addClass("have have2 have3 have4");
 }
 
 $(function () {
     $("#finsh").hide();
+    /* $(document).on('click', '.sidebar-toggle-line-wrap', function(e){
+         $(".toast").hide();
+     });*/
 });
 
-
+//
 function getcalendar() {
     loadFlag = 0;
     changeMonth = 13;
     mycalendar = null;
     $.getJSON("https://raw.githubusercontent.com/1260408088/1260408088.github.io/master/calendar.json", function (data) {
         mycalendar = data;
-   
+        // 然后继续用content就行了
     })
-    
+    /* $.ajax({
+         url:"https://raw.githack.com/1260408088/static/master/calendar.json",
+         type:"GET",
+         dataType: "json",
+         success:function(data){
+             mycalendar = data; // 获得json数据先获得
+             var year = data["2019-5"];
+             console.log(year);
+         },
+         error:function(){
+             alert("数据加载错误!");
+         }
+     });*/
 }
 
 function transfinsh() {
