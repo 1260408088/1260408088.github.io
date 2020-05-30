@@ -42,23 +42,13 @@ npm install --save git://github.com/howiefh/hexo-generator-calendar.git
 
 ## 	文件准备
 
-放到百度云盘里自取，这是[地址](https://pan.baidu.com/s/1pGw6g1AYQE-b_Wj8Hj1LPA) (3n3u)，下载后我建议，放到你自己的github上的项目中，便于引用，我特别创建了一个static仓库就用来存放这些静态的文件。科普一下github上的js、css文件如何来引用。
+放到百度云盘里自取，这是[地址](https://pan.baidu.com/s/1X8hXqkVePXkWc1oGNLnf-w) (wl8h)，之前我将这三个引入index.html的文件放在github上引用，后来GitHub的策略便了，我就放到next主题的文件夹内了。
 
-![4](4.PNG)
-
-点击raw，后这样的页面是不是似曾相识
-
-![](5.PNG)
-
-直接使用 这个地址是不行的，需要把 githubusercontent 改为githack 才可以,例如下面
-
-![](6.PNG)
-
-至此准备工作基本结束了。
+![](4.4.PNG)
 
 ## 开始整合
 
-找到 hexo\themes\next\layout\_custom\siderbar.swig 文件，将准备好的index.html文件同级别放置，然后打开sidebar.swig文件。在最上面添加代码：
+​	找到 hexo\themes\next\layout\_custom\siderbar.swig 文件，将准备好的index.html文件同级别放置，然后打开sidebar.swig文件。在最上面添加代码：
 
 ``` html
 <div id="coustomerCal">
@@ -66,5 +56,17 @@ npm install --save git://github.com/howiefh/hexo-generator-calendar.git
 </div>
 ```
 
-然后你需要修改index中的资源的引用，将 css、js文件都改为你自己的静态资源引用，当然了，你使用我的也可以，但是后期我修改的时候，可能会造成问题，所以建议你自己添加。大致就是这样了，如果过程中遇到问题，可以留言！最后附上我的github中的博客仓库，出现问题您可以参考一下！[hexo仓库](https://github.com/1260408088/1260408088.github.io)
+找到hexo\themes\next\source 目录，将对应的css文件，js文件放入到对应的目录下即可
+
+![](5.5.PNG)
+
+## 最后
+
+​	最开始的那个日历插件，如果没有问题的话，会出现在你的hexo仓库的根目录下，你在github上打开，点击row，copy网址，然后替换**calendar.js**最后的地址,文件直接拉到最后就看到了。下面的地址是我自己的，你要替换成你的。
+
+![](6.6.PNG)
+
+## 尾记
+
+​	这个玩意里面可优化的东西很多，如果你使用的话，你自己优化一下，我因为不是专业的前端，也秉持着能将就就将就的原则也没改，这篇文章的修改还是因为github的策略有变我才写的。如果有问题，请留言，我看到了一定会回复的！
 
