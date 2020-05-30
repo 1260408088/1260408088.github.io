@@ -66,6 +66,10 @@ npm install --save git://github.com/howiefh/hexo-generator-calendar.git
 
 ![](6.6.PNG)
 
+近来，github又抽风了，点击row也没办法加载这个calendar.json了，我琢磨了一下，直接在calendar.js中用**/calendar。json**替代github上生成的calendar.json的网络地址，也是可以而且还不用担心网络问题。
+
+![](7.PNG)
+
 ## 尾记
 
 ​	这个玩意里面可优化的东西很多，如果你使用的话，你自己优化一下，我因为不是专业的前端，也秉持着能将就就将就的原则也没改，这篇文章的修改还是因为github的策略有变我才写的。如果有问题，请留言，我看到了一定会回复的！
