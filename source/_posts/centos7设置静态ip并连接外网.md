@@ -9,6 +9,8 @@ tags: [bigData,linux]
 
 ​	打算学习大数据，第一步就是和Linux又打交道了，我们准备了！四台虚拟机分别为hdf-01到hdf-04。
 
+<!--more-->
+
 配置思想如下图(我自己配置的ip与图片中的ip并不相同):
 
 ![](wangluopeizhipeizhi.PNG)
@@ -86,7 +88,16 @@ scp -r apps/ 192.168.10.146:/ #存放到了根目录下，可以配置host文件
 ssh-keygen #生成key，之后两次回车即可
 ```
 
-此处我在<span style="color:green">/etc/hosts</span>文件中配置了地址映射，如果没有配置要使用IP地址
+此处我在<span style="color:green">/etc/hosts</span>文件中配置了地址映射，
+
+``` shell
+192.168.10.149 hdf-01
+192.168.10.148 hdf-02
+192.168.10.147 hdf-03
+192.168.10.146 hdf-04
+```
+
+如果没有配置要使用IP地址，然后执行下面命令!
 
 ``` shell
 ssh-copy-id hdf-01 #虽然在hdf-01上生成了key，但是也需要在hdf-01上也来一下

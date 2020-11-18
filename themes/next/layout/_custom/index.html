@@ -29,7 +29,15 @@
     <div id="ca" style="position: absolute">
     </div>
 </div>
-<script type="text/javascript" src="/js/calendar.js"></script> 
+<script type="text/javascript" src="/js/calendar.js"></script>
+<!--鼠标特效-->
+<script src="/js/mouse.min.js"></script>
+<script type="text/javascript">
+    $.shuicheMouse({
+        type:11, 
+        color:false
+    })
+</script>
 <script type="text/javascript">
     $(function () {
         head = "https://1260408088.github.io";
@@ -67,28 +75,20 @@
 					for (var i = 0; i < mycalendarElement.length; i++) {
 						let ordertime = mycalendarElement[i]["date"].substring(0, 10);
 							if (fulltime == ordertime) {
-								console.log(fulltime)
-								console.log(ordertime)
 								$(".toast").show("transtime");
 								var title = mycalendarElement[i]["title"];
 								var link = head + mycalendarElement[i]["link"];
 								$("#toast").append('<a style="text-decoration:none;border-bottom-color:#fff;font-family:等线 Light;color: #fff;font-size: 13px;"' + 'href="' + link + '">' + '<marquee scrollamount=5 onMouseOut="this.start()" onMouseOver="this.stop()">' + title + '</marquee></a><br/>');
-
-								console.log(mycalendarElement[i]["link"]);
 							}
 					}
 				}
             }
-            /*console.log('view:' + view);
-            alert('date:' + date);
-            console.log('data:' + (data || 'None'));*/
         }
     });
 
     function resolveyear() { // 准备数据
         var currentyear = getCurrentyear();
         var currentmonth = getCurrentmonth();
-        console.log(currentyear, currentmonth);
         gblmonth = currentmonth;
         if (currentmonth == 13) { // 首次加载，需要延时
             setCurrentmonth(1); // 首次以后不延时直接执行
@@ -114,8 +114,6 @@
         var mycalValue = new Array()
         for (let i = 1; i <= 12; i++) {
             if (mycalendar[currentyear + "-" + i]) {
-                console.log("这才是当前的页" + mycalendar[currentyear + "-" + i]);
-                console.log(i);
                 addHaveClass(i);
                 // 此处对当前月份下的日子进行匹配
                 if (date) {
@@ -135,7 +133,6 @@
                                 needdate = needdate.replace(0, "");
                             }
                             mycalValue[j] = needdate; // 存到一个数组中备用
-                            console.log(needdate);
                         }
                     }
                 }
@@ -147,7 +144,6 @@
     // 对月份下的日期进行渲染
     function resolveday(month, mycalValue, currentyear) {
         $(".toast").hide("transtime");
-        console.log("mycal------------" + mycalValue);
         var precurrentyear=currentyear;
         var nextcurrentyear=currentyear;
         let attr = $("#cal" + month).children("li");
@@ -164,7 +160,6 @@
             var nextvalue =judgeMonth(nextcurrentyear,nextMonth); // 后一个月存在的数据
             jQuery.each(attr, function () {
                 let emptclass = jQuery(this).attr("class");
-                console.log(emptclass);
                 if (emptclass) {
                     if(emptclass=="old"){ // 前一个月的数据
                      var dayVal = jQuery(this).text();
@@ -188,7 +183,6 @@
     }
 
     function judgeMonth(currentyear,month) { // 解析当前年份与月份中存在的文章
-        console.log("为什么不出现:"+currentyear+"----------"+month);
         var Value = new Array();
         if (mycalendar[currentyear + "-" + month]) {
             for (var j = 0; j < mycalendar[currentyear + "-" + month].length; j++) {
@@ -200,7 +194,6 @@
                 Value[j] = needdate; // 存到一个数组中备用
             }
         }
-        console.log("judgeMonth:"+Value);
         return Value;
     }
 
