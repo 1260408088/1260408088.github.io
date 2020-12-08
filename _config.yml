@@ -101,7 +101,7 @@ deploy:
   type: git
   repo: 
     github: git@github.com:1260408088/1260408088.github.io.git,master
-    codding: git@git.dev.tencent.com:kingpony/kingpony.coding.me.git,master
+    coding: git@git.coding.net:kingpony/kingpony.coding.me.git,master
     
 #安全
 encrypt:
