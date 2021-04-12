@@ -102,7 +102,7 @@ deploy:
   repo: 
     github: git@github.com:1260408088/1260408088.github.io.git,master
     coding: git@git.coding.net:kingpony/kingpony.coding.me.git,master
-    
+    gitee: git@gitee.com:kingpony/kingpony.git,master
 #安全
 encrypt:
     enable: true

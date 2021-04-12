@@ -1,3 +1,821 @@
-// build time:Tue Dec 08 2020 23:01:05 GMT+0800 (GMT+08:00)
-(function(t,e){getcalendar();if(typeof define==="function"&&define.amd){define("calendar",["jquery"],e)}else if(typeof exports==="object"){module.exports=e(require("jquery"))}else{e(t.jQuery)}})(this,function(t){var e={width:280,height:280,zIndex:1,trigger:null,offset:[0,1],customClass:"",view:"date",date:new Date,format:"yyyy/mm/dd",startWeek:0,weekArray:["日","一","二","三","四","五","六"],selectedRang:null,data:null,label:"{d}\n{v}",prev:"&lt;",next:"&gt;",viewChange:t.noop,onSelected:function(t,e,a){},onMouseenter:t.noop,onClose:t.noop},a="data-calendar-",i="["+a+"display-date]",n="["+a+"display-month]",s="["+a+"arrow-date]",r="["+a+"arrow-month]",o=a+"day",h=a+"month",l="disabled",d="markData",c={date:"calendar-d",month:"calendar-m"},u="old",m="new",f="now",p="have",g="selected",v='<i class="dot"></i>',D='{year}/<span class="m">{month}</span>',w='style="width:{w}px;height:{h}px;line-height:{h}px"',y="<li "+w+">{wk}</li>",M="<li "+w+' class="{class}" {action}>{value}</li>',$="<li "+w+" "+h+">{m}月</li>",b=['<div class="calendar-inner">','<div class="calendar-views">','<div class="view view-date">','<div class="calendar-hd">','<a href="javascript:;" data-calendar-display-date class="calendar-display">','{yyyy}/<span class="m">{mm}</span>',"</a>",'<div class="calendar-arrow">','<span class="prev" title="上一月" data-calendar-arrow-date>{prev}</span>','<span class="next" title="下一月" data-calendar-arrow-date>{next}</span>',"</div>","</div>",'<div class="calendar-ct">','<ol class="week">{week}</ol>','<ul class="date-items"></ul>',"</div>","</div>",'<div class="view view-month">','<div class="calendar-hd">','<a href="javascript:;" data-calendar-display-month class="calendar-display">{yyyy}</a>','<div class="calendar-arrow">','<span class="prev" title="上一年" data-calendar-arrow-month>{prev}</span>','<span class="next" title="下一年" data-calendar-arrow-month>{next}</span>',"</div>","</div>",'<ol class="calendar-ct month-items">{month}</ol>',"</div>","</div>","</div>",'<div class="calendar-label"><p>HelloWorld</p><i></i></div>'],x=Object.prototype.toString;function C(t){return x.call(t)==="[object Date]"}function k(t){return x.call(t)==="[object String]"}function I(t){return t.getAttribute("class")||t.getAttribute("className")}String.prototype.repeat=function(t){return this.replace(/\{\w+\}/g,function(e){var a=e.replace(/\{|\}/g,"");return t[a]||""})};String.prototype.toDate=function(){var t=new Date,e=this.replace(/\d/g,"").charAt(0),a=this.split(e);t.setFullYear(a[0]);t.setMonth(a[1]-1);t.setDate(a[2]);return t};Date.prototype.format=function(t){var e=this.getFullYear(),a=this.getMonth()+1,i=this.getDate();return t.replace("yyyy",e).replace("mm",a).replace("dd",i)};Date.prototype.isSame=function(t,e,a){if(C(t)){var i=t;t=i.getFullYear();e=i.getMonth()+1;a=i.getDate()}return this.getFullYear()===t&&this.getMonth()+1===e&&this.getDate()===a};Date.prototype.add=function(t){this.setDate(this.getDate()+t)};Date.prototype.minus=function(t){this.setDate(this.getDate()-t)};Date.prototype.clearTime=function(t){this.setHours(0);this.setSeconds(0);this.setMinutes(0);this.setMilliseconds(0);return this};Date.isLeap=function(t){return t%100!==0&&t%4===0||t%400===0};Date.getDaysNum=function(t,e){var a=31;switch(e){case 2:a=this.isLeap(t)?29:28;break;case 4:case 6:case 9:case 11:a=30;break}return a};Date.getSiblingsMonth=function(t,e,a){var i=new Date(t,e-1);i.setMonth(e-1+a);return{y:i.getFullYear(),m:i.getMonth()+1}};Date.getPrevMonth=function(t,e,a){return this.getSiblingsMonth(t,e,0-(a||1))};Date.getNextMonth=function(t,e,a){return this.getSiblingsMonth(t,e,a||1)};Date.tryParse=function(t){if(!t){return t}return C(t)?t:t.toDate()};function H(e,a){this.$element=t(e);this.options=t.extend({},t.fn.calendar.defaults,a);this.$element.addClass("calendar "+this.options.customClass);this.width=this.options.width;this.height=this.options.height;this.date=this.options.date;this.selectedRang=this.options.selectedRang;this.data=this.options.data;this.init()}H.prototype={constructor:H,getDayAction:function(t){var e=o;if(this.selectedRang){var a=Date.tryParse(this.selectedRang[0]),i=Date.tryParse(this.selectedRang[1]);if(a&&t<a.clearTime()||i&&t>i.clearTime()){e=l}}return e},getDayData:function(t){var e,a=this.data;if(a){for(var i=0,n=a.length;i<n;i++){var s=a[i];if(t.isSame(s.date.toDate())){e=s.value}}}return e},getDayItem:function(e,a,i,n){var s=this.date,r=new Date(e,a-1,i),o={w:this.width/7,h:this.height/7,value:i},h,l;var c=s.isSame(e,a,i)?g:"";if(n===1){o["class"]=u}else if(n===3){o["class"]=m}else{o["class"]=""}if(s.isSame(e,a,i)){o["class"]+=" "+f}o.action=this.getDayAction(r);h=this.getDayData(r);l=t(M.repeat(o));if(h){l.data(d,h);l.html(i+v)}return l},getDaysHtml:function(e,a){var i,n,s,r,o,h,l=this.date,d=t("<ol id="+"cal"+a+" "+'class="days"></ol>');if(C(e)){i=e.getFullYear();n=e.getMonth()+1}else{i=Number(e);n=Number(a)}s=new Date(i,n-1,1).getDay()||7;h=s-this.options.startWeek;r=Date.getDaysNum(i,n);o=Date.getPrevMonth(i,n);prevDaysNum=Date.getDaysNum(i,o.m);nextM=Date.getNextMonth(i,n);var c=1,u=2,m=3,f=0;for(var p=prevDaysNum-h+1;p<=prevDaysNum;p++,f++){d.append(this.getDayItem(o.y,o.m,p,c))}for(var g=1;g<=r;g++,f++){d.append(this.getDayItem(i,n,g,u))}for(var v=1,D=42-f;v<=D;v++){d.append(this.getDayItem(nextM.y,nextM.m,v,m))}return t('<li id="calM"></li>').width(this.options.width).append(d)},getWeekHtml:function(){var t=[],e=this.options.weekArray,a=this.options.startWeek,i=e.length,n=this.width/7,s=this.height/7;for(var r=a;r<i;r++){t.push(y.repeat({w:n,h:s,wk:e[r]}))}for(var o=0;o<a;o++){t.push(y.repeat({w:n,h:s,wk:e[o]}))}return t.join("")},getMonthHtml:function(){var t=[],e=this.width/4,a=this.height/4,i=1;for(;i<13;i++){t.push($.repeat({w:e,h:a,m:i}))}return t.join("")},setMonthAction:function(t){var e=this.date.getMonth()+1;setCurrentyear(t);resolveyear();this.$monthItems.children().removeClass(f);if(t===this.date.getFullYear()){this.$monthItems.children().eq(e-1).addClass(f)}},fillStatic:function(){var t={prev:this.options.prev,next:this.options.next,week:this.getWeekHtml(),month:this.getMonthHtml()};this.$element.html(b.join("").repeat(t))},updateDisDate:function(t,e){this.$disDate.html(D.repeat({year:t,month:e}))},updateDisMonth:function(t){this.$disMonth.html(t)},fillDateItems:function(t,e){var a=[Date.getPrevMonth(t,e),{y:t,m:e},Date.getNextMonth(t,e)];this.$dateItems.html("");for(var i=0;i<3;i++){var n=this.getDaysHtml(a[i].y,a[i].m);this.$dateItems.append(n)}setCurrentmonth(e);retuenday()},hide:function(t,e,a){this.$trigger.val(e.format(this.options.format));this.options.onClose.call(this,t,e,a);this.$element.hide()},trigger:function(){this.$trigger=this.options.trigger instanceof t?this.options.trigger:t(this.options.trigger);var e=this,a=e.$element,i=e.$trigger.offset(),n=e.options.offset;a.addClass("calendar-modal").css({left:i.left+n[0]+"px",top:i.top+e.$trigger.outerHeight()+n[1]+"px",zIndex:e.options.zIndex});e.$trigger.click(function(){a.show()});t(document).click(function(i){if(e.$trigger[0]!=i.target&&!t.contains(a[0],i.target)){a.hide()}})},render:function(){this.$week=this.$element.find(".week");this.$dateItems=this.$element.find(".date-items");this.$monthItems=this.$element.find(".month-items");this.$label=this.$element.find(".calendar-label");this.$disDate=this.$element.find(i);this.$disMonth=this.$element.find(n);var t=this.date.getFullYear(),e=this.date.getMonth()+1;this.updateDisDate(t,e);this.updateMonthView(t);this.fillDateItems(t,e);this.options.trigger&&this.trigger()},setView:function(t){this.$element.removeClass(c.date+" "+c.month).addClass(c[t]);this.view=t},updateDateView:function(e,a,i,n){a=a||this.date.getMonth()+1;var s=this,r=this.$dateItems,o={prev:function(){var i=Date.getPrevMonth(e,a),o=Date.getPrevMonth(e,a,2),h=s.getDaysHtml(o.y,o.m);a=i.m;e=i.y;r.animate({marginLeft:0},300,"swing",function(){r.children(":last").remove();r.prepend(h).css("margin-left","-100%");t.isFunction(n)&&n.call(s)});setCurrentmonth(a);setCurrentyear(e);preMonth()},next:function(){var i=Date.getNextMonth(e,a),o=Date.getNextMonth(e,a,2),h=s.getDaysHtml(o.y,o.m);a=i.m;e=i.y;r.animate({marginLeft:"-200%"},300,"swing",function(){r.children(":first").remove();r.append(h).css("margin-left","-100%");t.isFunction(n)&&n.call(s)});setCurrentmonth(a);setCurrentyear(e);nextMonth()}};if(i){o[i]()}else{this.fillDateItems(e,a)}this.updateDisDate(e,a);this.setView("date");return{y:e,m:a}},updateMonthView:function(t){this.updateDisMonth(t);this.setMonthAction(t);this.setView("month")},getDisDateValue:function(){var t=this.$disDate.html().split("/"),e=Number(t[0]),a=Number(t[1].match(/\d{1,2}/)[0]);return[e,a]},selectedDay:function(t,e){var a=this.getDisDateValue(),i=a[0],n=a[1],s=function(){this.$dateItems.children(":eq(1)").find("["+o+"]:not(."+m+", ."+u+")").removeClass(g).filter(function(e){return parseInt(this.innerHTML)===t}).addClass(g)};if(e){var r=this.updateDateView(i,n,{old:"prev","new":"next"}[e],s);i=r.y;n=r.m;this.options.viewChange("date",i,n)}else{s.call(this)}return new Date(i,n-1,t)},showLabel:function(t,e,a,i){var n=this.$label;n.find("p").html(this.options.label.repeat({m:e,d:a.format(this.options.format),v:i}).replace(/\n/g,"<br>"));var s=n.outerWidth(),r=n.outerHeight();n.css({left:t.pageX-s/2+"px",top:t.pageY-r-20+"px"}).show()},hasLabel:function(){if(this.options.label){t("body").append(this.$label);return true}return false},event:function(){var e=this,a=e.options.viewChange;e.$element.on("click",i,function(){var t=e.getDisDateValue();e.updateMonthView(t[0],t[1]);a("month",t[0],t[1])}).on("click",n,function(){var t=this.innerHTML;e.updateDateView(t);a("date",t)});e.$element.on("click",s,function(){var t=e.getDisDateValue(),i=I(this),n=t[0],s=t[1];var r=e.updateDateView(n,s,i,function(){a("date",r.y,r.m)})}).on("click",r,function(){var t=Number(e.$disMonth.html()),i=I(this);t=i==="prev"?t-1:t+1;e.updateMonthView(t);a("month",t)});e.$element.on("click","["+o+"]",function(){var a=parseInt(this.innerHTML),i=I(this),n=/new|old/.test(i)?i.match(/new|old/)[0]:"";var s=e.selectedDay(a,n);e.options.onSelected.call(this,"date",s,t(this).data(d));e.$trigger&&e.hide("date",s,t(this).data(d))}).on("click","["+h+"]",function(){var t=Number(e.$disMonth.html()),i=parseInt(this.innerHTML);e.updateDateView(t,i);a("date",t,i);e.options.onSelected.call(this,"month",new Date(t,i-1))});e.$element.on("mouseenter","["+o+"]",function(a){var i=e.getDisDateValue(),n=new Date(i[0],i[1]-1,parseInt(this.innerHTML));if(e.hasLabel&&t(this).data(d)){t("body").append(e.$label);e.showLabel(a,"date",n,t(this).data(d))}e.options.onMouseenter.call(this,"date",n,t(this).data(d))}).on("mouseleave","["+o+"]",function(){e.$label.hide()})},resize:function(){var t=this.width,e=this.height,a=this.$element.find(".calendar-hd").outerHeight();this.$element.width(t).height(e+a).find(".calendar-inner, .view").css("width",t+"px");this.$element.find(".calendar-ct").width(t).height(e)},init:function(){this.fillStatic();this.resize();this.render();this.view=this.options.view;this.setView(this.view);this.event()},setData:function(t){this.data=t;if(this.view==="date"){var e=this.getDisDateValue();this.fillDateItems(e[0],e[1])}else if(this.view==="month"){this.updateMonthView(this.$disMonth.html())}},methods:function(t,e){if(x.call(this[t])==="[object Function]"){return this[t].apply(this,e)}}};t.fn.calendar=function(e){var a=this.data("calendar"),i,n=[].slice.call(arguments);if(!a){return this.each(function(){return t(this).data("calendar",new H(this,e))})}if(k(e)){i=e;n.shift();return a.methods(i,n)}return this};t.fn.calendar.defaults=e});function setCurrentyear(t){changeYear=t}function getCurrentyear(){return changeYear}function getCurrentmonth(){return changeMonth}function setCurrentmonth(t){changeMonth=t}function removeHaveClass(){$(".calendar-ct.month-items").children().removeClass("have have2 have3 have4 ")}function addHaveClass(t){$(".calendar-ct.month-items").children().eq(t-1).addClass("have have2 have3 have4")}$(function(){$("#finsh").hide()});function getcalendar(){loadFlag=0;changeMonth=13;mycalendar=null;$.getJSON("/calendar.json",function(t){mycalendar=t})}function transfinsh(){$("#finsh").fadeToggle("slow");$("#coustomerCal").fadeToggle("slow");$(".toast").fadeIn("slow");$("#toast").hide()}
-//rebuild by neat 
+(function (root, factory) {
+    getcalendar();
+    if (typeof define === 'function' && define.amd) {
+        define('calendar', ['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('jquery'));
+    } else {
+        factory(root.jQuery);
+    }
+}(this, function ($) {
+
+    var defaults = {
+
+          
+            width: 280,
+            
+            height: 280,
+
+            zIndex: 1,
+
+            
+            trigger: null,
+
+            
+            offset: [0, 1],
+
+            
+            customClass: '',
+
+           
+            view: 'date',
+
+           
+            date: new Date(),
+            format: 'yyyy/mm/dd',
+
+           
+            startWeek: 0,
+
+           
+            weekArray: ['日', '一', '二', '三', '四', '五', '六'],
+
+            
+            selectedRang: null,
+
+            
+            data: null,
+
+            
+            label: '{d}\n{v}',
+
+          
+            prev: '&lt;',
+            next: '&gt;',
+
+            
+            viewChange: $.noop,
+
+            
+            onSelected: function (view, date, value) {
+                
+            },
+
+            
+            onMouseenter: $.noop,
+
+            onClose: $.noop
+        },
+
+       
+
+        ACTION_NAMESPACE = 'data-calendar-',
+
+        DISPLAY_VD = '[' + ACTION_NAMESPACE + 'display-date]',
+        DISPLAY_VM = '[' + ACTION_NAMESPACE + 'display-month]',
+
+        ARROW_DATE = '[' + ACTION_NAMESPACE + 'arrow-date]',
+        ARROW_MONTH = '[' + ACTION_NAMESPACE + 'arrow-month]',
+
+        ITEM_DAY = ACTION_NAMESPACE + 'day',
+        ITEM_MONTH = ACTION_NAMESPACE + 'month',
+
+        DISABLED = 'disabled',
+        MARK_DATA = 'markData',
+
+        VIEW_CLASS = {
+            date: 'calendar-d',
+            month: 'calendar-m'
+        },
+
+        OLD_DAY_CLASS = 'old',
+        NEW_DAY_CLASS = 'new',
+        TODAY_CLASS = 'now',
+        HAVE_CLASS = "have",
+        SELECT_CLASS = 'selected',
+        MARK_DAY_HTML = '<i class="dot"></i>',
+        DATE_DIS_TPL = '{year}/<span class="m">{month}</span>',
+
+        ITEM_STYLE = 'style="width:{w}px;height:{h}px;line-height:{h}px"',
+        WEEK_ITEM_TPL = '<li ' + ITEM_STYLE + '>{wk}</li>',
+        DAY_ITEM_TPL = '<li ' + ITEM_STYLE + ' class="{class}" {action}>{value}</li>',
+        MONTH_ITEM_TPL = '<li ' + ITEM_STYLE + ' ' + ITEM_MONTH + '>{m}月</li>',
+
+        TEMPLATE = [
+            '<div class="calendar-inner">',
+            '<div class="calendar-views">',
+            '<div class="view view-date">',
+            '<div class="calendar-hd">',
+            '<a href="javascript:;" data-calendar-display-date class="calendar-display">',
+            '{yyyy}/<span class="m">{mm}</span>',
+            '</a>',
+            '<div class="calendar-arrow">',
+            '<span class="prev" title="上一月" data-calendar-arrow-date>{prev}</span>',
+            '<span class="next" title="下一月" data-calendar-arrow-date>{next}</span>',
+            '</div>',
+            '</div>',
+            '<div class="calendar-ct">',
+            '<ol class="week">{week}</ol>',
+            '<ul class="date-items"></ul>',
+            '</div>',
+            '</div>',
+            '<div class="view view-month">',
+            '<div class="calendar-hd">',
+            '<a href="javascript:;" data-calendar-display-month class="calendar-display">{yyyy}</a>',
+            '<div class="calendar-arrow">',
+            '<span class="prev" title="上一年" data-calendar-arrow-month>{prev}</span>',
+            '<span class="next" title="下一年" data-calendar-arrow-month>{next}</span>',
+            '</div>',
+            '</div>',
+            '<ol class="calendar-ct month-items">{month}</ol>',
+            '</div>',
+            '</div>',
+            '</div>',
+            '<div class="calendar-label"><p>HelloWorld</p><i></i></div>'
+        ],
+        OS = Object.prototype.toString;
+
+   
+
+    function isDate(obj) {
+        return OS.call(obj) === '[object Date]';
+    }
+
+    function isString(obj) {
+        return OS.call(obj) === '[object String]';
+    }
+
+
+    function getClass(el) {
+        return el.getAttribute('class') || el.getAttribute('className');
+    }
+
+   
+
+    String.prototype.repeat = function (data) {
+        return this.replace(/\{\w+\}/g, function (str) {
+            var prop = str.replace(/\{|\}/g, '');
+            return data[prop] || '';
+        });
+    }
+
+    String.prototype.toDate = function () {
+        var dt = new Date(),
+            dot = this.replace(/\d/g, '').charAt(0),
+            arr = this.split(dot);
+
+        dt.setFullYear(arr[0]);
+        dt.setMonth(arr[1] - 1);
+        dt.setDate(arr[2]);
+        return dt;
+    }
+
+    Date.prototype.format = function (exp) {
+        var y = this.getFullYear(),
+            m = this.getMonth() + 1,
+            d = this.getDate();
+        return exp.replace('yyyy', y).replace('mm', m).replace('dd', d);
+    }
+
+    Date.prototype.isSame = function (y, m, d) {
+        if (isDate(y)) {
+            var dt = y;
+            y = dt.getFullYear();
+            m = dt.getMonth() + 1;
+            d = dt.getDate();
+        }
+        return this.getFullYear() === y && this.getMonth() + 1 === m && this.getDate() === d;
+    }
+
+    Date.prototype.add = function (n) {
+
+        this.setDate(this.getDate() + n);
+    }
+
+    Date.prototype.minus = function (n) {
+        this.setDate(this.getDate() - n);
+    }
+
+    Date.prototype.clearTime = function (n) {
+        this.setHours(0);
+        this.setSeconds(0);
+        this.setMinutes(0);
+        this.setMilliseconds(0);
+        return this;
+    }
+
+    Date.isLeap = function (y) {
+        return (y % 100 !== 0 && y % 4 === 0) || (y % 400 === 0);
+    }
+
+    Date.getDaysNum = function (y, m) {
+        var num = 31;
+
+        switch (m) {
+            case 2:
+                num = this.isLeap(y) ? 29 : 28;
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                num = 30;
+                break;
+        }
+        return num;
+    }
+
+    Date.getSiblingsMonth = function (y, m, n) {
+        var d = new Date(y, m - 1);
+        d.setMonth(m - 1 + n);
+        return {
+            y: d.getFullYear(),
+            m: d.getMonth() + 1
+        };
+    }
+
+    Date.getPrevMonth = function (y, m, n) {
+        return this.getSiblingsMonth(y, m, 0 - (n || 1));
+    }
+
+    Date.getNextMonth = function (y, m, n) {
+        return this.getSiblingsMonth(y, m, n || 1);
+    }
+
+    Date.tryParse = function (obj) {
+        if (!obj) {
+            return obj;
+        }
+        return isDate(obj) ? obj : obj.toDate();
+    }
+
+
+
+    function Calendar(element, options) {
+        this.$element = $(element);
+        this.options = $.extend({}, $.fn.calendar.defaults, options);
+        this.$element.addClass('calendar ' + this.options.customClass);
+        this.width = this.options.width;
+        this.height = this.options.height;
+        this.date = this.options.date;
+        this.selectedRang = this.options.selectedRang;
+        this.data = this.options.data;
+        this.init();
+    }
+
+    Calendar.prototype = {
+        constructor: Calendar,
+        getDayAction: function (day) {
+            var action = ITEM_DAY;
+            if (this.selectedRang) {
+                var start = Date.tryParse(this.selectedRang[0]),
+                    end = Date.tryParse(this.selectedRang[1]);
+
+                if ((start && day < start.clearTime()) || (end && day > end.clearTime())) {
+                    action = DISABLED;
+                }
+            }
+
+            return action;
+        },
+        getDayData: function (day) {
+            var ret, data = this.data;
+
+            if (data) {
+
+                for (var i = 0, len = data.length; i < len; i++) {
+                    var item = data[i];
+
+                    if (day.isSame(item.date.toDate())) {
+                        ret = item.value;
+                    }
+                }
+            }
+
+            return ret;
+        },
+        getDayItem: function (y, m, d, f) {
+            var dt = this.date,
+                idt = new Date(y, m - 1, d),
+                data = {
+                    w: this.width / 7,
+                    h: this.height / 7,
+                    value: d
+                },
+                markData,
+                $item;
+
+            var selected = dt.isSame(y, m, d) ? SELECT_CLASS : '';
+            if (f === 1) {
+                data['class'] = OLD_DAY_CLASS;
+            } else if (f === 3) {
+                data['class'] = NEW_DAY_CLASS;
+            } else {
+                data['class'] = '';
+            }
+
+            if (dt.isSame(y, m, d)) {
+                data['class'] += ' ' + TODAY_CLASS;
+            }
+
+            data.action = this.getDayAction(idt);
+            markData = this.getDayData(idt);
+
+            $item = $(DAY_ITEM_TPL.repeat(data));
+
+            if (markData) {
+                $item.data(MARK_DATA, markData);
+                $item.html(d + MARK_DAY_HTML);
+            }
+
+            return $item;
+        },
+        getDaysHtml: function (y, m) {
+            var year, month, firstWeek, daysNum, prevM, prevDiff,
+                dt = this.date,
+
+                $days = $('<ol id=' + 'cal' + m + " " + 'class="days"></ol>'); 
+
+            if (isDate(y)) {
+                year = y.getFullYear();
+                month = y.getMonth() + 1;
+            } else {
+                year = Number(y);
+                month = Number(m);
+            }
+
+            firstWeek = new Date(year, month - 1, 1).getDay() || 7;
+            prevDiff = firstWeek - this.options.startWeek;
+            daysNum = Date.getDaysNum(year, month);
+            prevM = Date.getPrevMonth(year, month);
+            prevDaysNum = Date.getDaysNum(year, prevM.m);
+            nextM = Date.getNextMonth(year, month);
+        
+            var PREV_FLAG = 1,
+                CURR_FLAG = 2,
+                NEXT_FLAG = 3,
+                count = 0;
+
+            for (var p = prevDaysNum - prevDiff + 1; p <= prevDaysNum; p++, count++) {
+
+                $days.append(this.getDayItem(prevM.y, prevM.m, p, PREV_FLAG));
+            }
+
+            for (var c = 1; c <= daysNum; c++, count++) {
+                $days.append(this.getDayItem(year, month, c, CURR_FLAG));
+            }
+
+            for (var n = 1, nl = 42 - count; n <= nl; n++) {
+
+                $days.append(this.getDayItem(nextM.y, nextM.m, n, NEXT_FLAG));
+            }
+
+            return $('<li id="calM"></li>').width(this.options.width).append($days);
+        },
+        getWeekHtml: function () {
+            var week = [],
+                weekArray = this.options.weekArray,
+                start = this.options.startWeek,
+                len = weekArray.length,
+                w = this.width / 7,
+                h = this.height / 7;
+
+            for (var i = start; i < len; i++) {
+                week.push(WEEK_ITEM_TPL.repeat({
+                    w: w,
+                    h: h,
+                    wk: weekArray[i]
+                }));
+            }
+
+            for (var j = 0; j < start; j++) {
+                week.push(WEEK_ITEM_TPL.repeat({
+                    w: w,
+                    h: h,
+                    wk: weekArray[j]
+                }));
+            }
+
+            return week.join('');
+        },
+        getMonthHtml: function () {
+            var month = [],
+                w = this.width / 4,
+                h = this.height / 4,
+                i = 1;
+
+            for (; i < 13; i++) {
+                month.push(MONTH_ITEM_TPL.repeat({
+                    w: w,
+                    h: h,
+                    m: i
+                }));
+            }
+
+            return month.join('');
+        },
+        setMonthAction: function (y) {
+            var m = this.date.getMonth() + 1;
+            setCurrentyear(y); 
+            
+            resolveyear(); 
+           
+            this.$monthItems.children().removeClass(TODAY_CLASS);
+            if (y === this.date.getFullYear()) {
+                this.$monthItems.children().eq(m - 1).addClass(TODAY_CLASS);
+            }
+        },
+        fillStatic: function () {
+            var staticData = {
+                prev: this.options.prev,
+                next: this.options.next,
+                week: this.getWeekHtml(),
+                month: this.getMonthHtml()
+            };
+            this.$element.html(TEMPLATE.join('').repeat(staticData));
+        },
+        updateDisDate: function (y, m) {
+            this.$disDate.html(DATE_DIS_TPL.repeat({
+                year: y,
+                month: m,
+            }));
+        },
+        updateDisMonth: function (y) {
+            this.$disMonth.html(y);
+        },
+        fillDateItems: function (y, m) {
+            var ma = [
+                Date.getPrevMonth(y, m), {
+                    y: y,
+                    m: m
+                },
+                Date.getNextMonth(y, m)
+            ];
+
+            this.$dateItems.html('');
+            for (var i = 0; i < 3; i++) {
+                var $item = this.getDaysHtml(ma[i].y, ma[i].m);
+                this.$dateItems.append($item);
+            }
+            setCurrentmonth(m);
+            retuenday();
+        },
+        hide: function (view, date, data) {
+            this.$trigger.val(date.format(this.options.format));
+            this.options.onClose.call(this, view, date, data);
+            this.$element.hide();
+        },
+        trigger: function () {
+
+            this.$trigger = this.options.trigger instanceof $ ? this.options.trigger : $(this.options.trigger);
+
+            var _this = this,
+                $this = _this.$element,
+                post = _this.$trigger.offset(),
+                offs = _this.options.offset;
+
+            $this.addClass('calendar-modal').css({
+                left: (post.left + offs[0]) + 'px',
+                top: (post.top + _this.$trigger.outerHeight() + offs[1]) + 'px',
+                zIndex: _this.options.zIndex
+            });
+
+            _this.$trigger.click(function () {
+                $this.show();
+            });
+
+            $(document).click(function (e) {
+                if (_this.$trigger[0] != e.target && !$.contains($this[0], e.target)) {
+                    $this.hide();
+                }
+            });
+        },
+        render: function () {
+            this.$week = this.$element.find('.week');
+            this.$dateItems = this.$element.find('.date-items');
+            this.$monthItems = this.$element.find('.month-items');
+            this.$label = this.$element.find('.calendar-label');
+            this.$disDate = this.$element.find(DISPLAY_VD);
+            this.$disMonth = this.$element.find(DISPLAY_VM);
+
+            var y = this.date.getFullYear(),
+                m = this.date.getMonth() + 1;
+
+            this.updateDisDate(y, m);
+            this.updateMonthView(y);
+
+            this.fillDateItems(y, m);
+
+            this.options.trigger && this.trigger();
+
+        },
+        setView: function (view) {
+            this.$element.removeClass(VIEW_CLASS.date + ' ' + VIEW_CLASS.month)
+                .addClass(VIEW_CLASS[view]);
+            this.view = view;
+        },
+        updateDateView: function (y, m, dirc, cb) {
+            m = m || this.date.getMonth() + 1;
+
+            var _this = this,
+                $dis = this.$dateItems,
+                exec = {
+                    prev: function () { 
+                        var pm = Date.getPrevMonth(y, m),
+                            ppm = Date.getPrevMonth(y, m, 2),
+                            $prevItem = _this.getDaysHtml(ppm.y, ppm.m);
+
+                        m = pm.m;
+                        y = pm.y;
+
+                        $dis.animate({
+                            marginLeft: 0
+                        }, 300, 'swing', function () {
+                            $dis.children(':last').remove();
+                            $dis.prepend($prevItem).css('margin-left', '-100%');
+                            $.isFunction(cb) && cb.call(_this);
+                        });
+                        
+                        setCurrentmonth(m);
+                        setCurrentyear(y);
+                        preMonth();
+                    },
+                    next: function () { 
+                        var nm = Date.getNextMonth(y, m),
+                            nnm = Date.getNextMonth(y, m, 2),
+                            $nextItem = _this.getDaysHtml(nnm.y, nnm.m);
+
+                        m = nm.m;
+                        y = nm.y;
+
+                        $dis.animate({
+                            marginLeft: '-200%'
+                        }, 300, 'swing', function () {
+                            $dis.children(':first').remove();
+                            $dis.append($nextItem).css('margin-left', '-100%');
+
+                            $.isFunction(cb) && cb.call(_this);
+                        });
+
+                        setCurrentmonth(m);
+                        setCurrentyear(y);
+                        nextMonth();
+                    }
+                };
+
+
+            if (dirc) {
+                exec[dirc]();
+            } else {
+                this.fillDateItems(y, m);
+            }
+
+            this.updateDisDate(y, m);
+
+            this.setView('date');
+
+            return {
+                y: y,
+                m: m
+            };
+        },
+        updateMonthView: function (y) {
+            this.updateDisMonth(y);
+            this.setMonthAction(y);
+            this.setView('month');
+        },
+        getDisDateValue: function () {
+            var arr = this.$disDate.html().split('/'),
+                y = Number(arr[0]),
+                m = Number(arr[1].match(/\d{1,2}/)[0]);
+
+            return [y, m];
+        },
+        selectedDay: function (d, type) {
+            var arr = this.getDisDateValue(),
+                y = arr[0],
+                m = arr[1],
+                toggleClass = function () {
+                    this.$dateItems.children(':eq(1)')
+                        .find('[' + ITEM_DAY + ']:not(.' + NEW_DAY_CLASS + ', .' + OLD_DAY_CLASS + ')')
+                        .removeClass(SELECT_CLASS)
+                        .filter(function (index) {
+                            return parseInt(this.innerHTML) === d;
+                        }).addClass(SELECT_CLASS);
+                };
+
+            if (type) {
+                var ret = this.updateDateView(y, m, {
+                    'old': 'prev',
+                    'new': 'next'
+                }[type], toggleClass);
+                y = ret.y;
+                m = ret.m;
+                this.options.viewChange('date', y, m);
+            } else {
+                toggleClass.call(this);
+            }
+
+            return new Date(y, m - 1, d);
+        },
+        showLabel: function (event, view, date, data) {
+            var $lbl = this.$label;
+
+            $lbl.find('p').html(this.options.label.repeat({
+                m: view,
+                d: date.format(this.options.format),
+                v: data
+            }).replace(/\n/g, '<br>'));
+
+            var w = $lbl.outerWidth(),
+                h = $lbl.outerHeight();
+
+            $lbl.css({
+                left: (event.pageX - w / 2) + 'px',
+                top: (event.pageY - h - 20) + 'px'
+            }).show();
+        },
+        hasLabel: function () {
+            if (this.options.label) {
+                $('body').append(this.$label);
+                return true;
+            }
+            return false;
+        },
+        event: function () {
+            var _this = this,
+                vc = _this.options.viewChange;
+
+            _this.$element.on('click', DISPLAY_VD, function () {
+                var arr = _this.getDisDateValue();
+                _this.updateMonthView(arr[0], arr[1]);
+
+                vc('month', arr[0], arr[1]);
+
+            }).on('click', DISPLAY_VM, function () {
+                var y = this.innerHTML;
+
+                _this.updateDateView(y);
+                vc('date', y);
+            });
+
+            _this.$element.on('click', ARROW_DATE, function () {
+                var arr = _this.getDisDateValue(),
+                    type = getClass(this),
+                    y = arr[0],
+                    m = arr[1];
+
+                var d = _this.updateDateView(y, m, type, function () {
+                    vc('date', d.y, d.m);
+                });
+
+            }).on('click', ARROW_MONTH, function () {
+
+                var y = Number(_this.$disMonth.html()),
+                    type = getClass(this);
+
+                y = type === 'prev' ? y - 1 : y + 1;
+                _this.updateMonthView(y);
+                vc('month', y);
+            });
+
+            _this.$element.on('click', '[' + ITEM_DAY + ']', function () {
+                var d = parseInt(this.innerHTML),
+                    cls = getClass(this),
+                    type = /new|old/.test(cls) ? cls.match(/new|old/)[0] : '';
+
+                var day = _this.selectedDay(d, type);
+
+                _this.options.onSelected.call(this, 'date', day, $(this).data(MARK_DATA));
+
+                _this.$trigger && _this.hide('date', day, $(this).data(MARK_DATA));
+
+            }).on('click', '[' + ITEM_MONTH + ']', function () {
+                var y = Number(_this.$disMonth.html()),
+                    m = parseInt(this.innerHTML);
+
+                _this.updateDateView(y, m);
+                vc('date', y, m);
+                _this.options.onSelected.call(this, 'month', new Date(y, m - 1));
+            });
+
+            _this.$element.on('mouseenter', '[' + ITEM_DAY + ']', function (e) {
+                var arr = _this.getDisDateValue(),
+                    day = new Date(arr[0], arr[1] - 1, parseInt(this.innerHTML));
+
+                if (_this.hasLabel && $(this).data(MARK_DATA)) {
+                    $('body').append(_this.$label);
+                    _this.showLabel(e, 'date', day, $(this).data(MARK_DATA));
+                }
+
+                _this.options.onMouseenter.call(this, 'date', day, $(this).data(MARK_DATA));
+            }).on('mouseleave', '[' + ITEM_DAY + ']', function () {
+                _this.$label.hide();
+            });
+        },
+        resize: function () {
+            var w = this.width,
+                h = this.height,
+                hdH = this.$element.find('.calendar-hd').outerHeight();
+
+            this.$element.width(w).height(h + hdH)
+                .find('.calendar-inner, .view')
+                .css('width', w + 'px');
+
+            this.$element.find('.calendar-ct').width(w).height(h);
+
+        },
+        init: function () {
+
+            this.fillStatic();
+            this.resize();
+            this.render();
+            this.view = this.options.view;
+            this.setView(this.view);
+            this.event();
+        },
+        setData: function (data) {
+            this.data = data;
+
+            if (this.view === 'date') {
+                var d = this.getDisDateValue();
+                this.fillDateItems(d[0], d[1]);
+            } else if (this.view === 'month') {
+                this.updateMonthView(this.$disMonth.html());
+            }
+        },
+        methods: function (name, args) {
+            if (OS.call(this[name]) === '[object Function]') {
+                return this[name].apply(this, args);
+            }
+        }
+    };
+
+    $.fn.calendar = function (options) {
+        var calendar = this.data('calendar'),
+            fn,
+            args = [].slice.call(arguments);
+
+        if (!calendar) {
+            return this.each(function () {
+                return $(this).data('calendar', new Calendar(this, options));
+            });
+        }
+        if (isString(options)) {
+            fn = options;
+            args.shift();
+            return calendar.methods(fn, args);
+        }
+
+        return this;
+    }
+
+    $.fn.calendar.defaults = defaults;
+}));
+
+function setCurrentyear(y) { 
+    changeYear = y;
+}
+
+function getCurrentyear() { 
+    return changeYear;
+}
+
+function getCurrentmonth() {
+    return changeMonth;
+}
+
+function setCurrentmonth(m) {
+    changeMonth = m;
+}
+
+function removeHaveClass() { 
+    $(".calendar-ct.month-items").children().removeClass("have have2 have3 have4 ");
+}
+
+function addHaveClass(m) { 
+    $(".calendar-ct.month-items").children().eq(m - 1).addClass("have have2 have3 have4");
+}
+
+$(function () {
+    $("#finsh").hide();
+});
+
+// https://raw.githubusercontent.com/1260408088/1260408088.github.io/master/calendar.json
+function getcalendar() {
+    loadFlag = 0;
+    changeMonth = 13;
+    mycalendar = null;
+    $.getJSON("/calendar.json", function (data) {
+        mycalendar = data;
+   
+    })
+    
+}
+
+function transfinsh() {
+    $("#finsh").fadeToggle("slow");
+    $("#coustomerCal").fadeToggle("slow");
+    $(".toast").fadeIn("slow");
+	$("#toast").hide();
+}
